@@ -88,7 +88,7 @@ def quicksort_copy2(L):
         return L
     pivot1 = L[0]
     pivot2 = L[len(L)-1]
-    pivot3 = L[len(L)/2]
+    pivot3 = L[len(L)//2]
     pivots = [pivot1, pivot2, pivot3]
     pivots.sort()
     left, right, center1, center2 = [], [], [], []
@@ -103,3 +103,38 @@ def quicksort_copy2(L):
         else:
             right.append(num)
     return quicksort_copy2(left) + [pivots[0]] + quicksort_copy2(center1) + [pivots[1]] + quicksort_copy2(center2) + [pivots[2]] + quicksort_copy2(right)
+    
+
+def quad_pivot_quicksort(L):
+    copy = quicksort_copy1(L)
+    for i in range(len(L)):
+        L[i] = copy[i]
+
+
+def quicksort_copy3(L):
+    if len(L) < 2:
+        return L
+    pivot1 = L[0]
+    pivot2 = L[len(L)-1]
+    pivot3 = L[(len(L)*3)//4]
+    pivot4 = L[len(L)//4]
+    pivots = [pivot1, pivot2, pivot3, pivot4]
+    pivots.sort()
+    left1, left2, center, right1, right2 = [], [], [], [], []
+
+    for num in L[1:len(L)-1]:
+        if num < pivots[0]:
+            left1.append(num)
+        elif num < pivots[1]:
+            left2.append(num)
+        elif num < pivots[2]:
+            center1.append(num)
+        elif num < pivots[3]:
+            right1.append(num)
+        else:
+            right2.append(num)
+    return quicksort_copy3(left1) + [pivots[0]] + quicksort_copy(left2) + [pivots[1]] + quicksort_copy3(center) + [pivots[2]] + quicksort_copy2(right1) + [pivots[3]] + quicksort_copy2(right2)
+    
+    
+    
+    
