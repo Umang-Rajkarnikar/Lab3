@@ -78,12 +78,12 @@ def quicksort_copy1(L):
 
 
 def tri_pivot_quicksort(L):
-    copy = quicksort_copy1(L)
+    copy = tri_pivot_quicksort_copy(L)
     for i in range(len(L)):
         L[i] = copy[i]
 
 
-def quicksort_copy2(L):
+def tri_pivot_quicksort_copy(L):
     if len(L) < 2:
         return L
     pivot1 = L[0]
@@ -95,23 +95,23 @@ def quicksort_copy2(L):
 
     for num in L[1:len(L)-1]:
         if num < pivots[0]:
-            left.append(num)
+            quarter_1.append(num)
         elif num < pivots[1]:
-            center1.append(num)
+            quarter_2.append(num)
         elif num < pivots[2]:
-            center2.append(num)
+            quarter_3.append(num)
         else:
-            right.append(num)
-    return quicksort_copy2(left) + [pivots[0]] + quicksort_copy2(center1) + [pivots[1]] + quicksort_copy2(center2) + [pivots[2]] + quicksort_copy2(right)
+            quarter_4.append(num)
+    return tri_pivot_quicksort_copy(quarter_1) + [pivots[0]] + tri_pivot_quicksort_copy(quarter_2) + [pivots[1]] + tri_pivot_quicksort_copy(quarter_3) + [pivots[2]] + tri_pivot_quicksort_copy(quarter_4)
     
 
 def quad_pivot_quicksort(L):
-    copy = quicksort_copy1(L)
+    copy = quad_pivot_quicksort_copy(L)
     for i in range(len(L)):
         L[i] = copy[i]
 
 
-def quicksort_copy3(L):
+def quad_pivot_quicksort_copy(L):
     if len(L) < 2:
         return L
     pivot1 = L[0]
@@ -120,20 +120,20 @@ def quicksort_copy3(L):
     pivot4 = L[len(L)//4]
     pivots = [pivot1, pivot2, pivot3, pivot4]
     pivots.sort()
-    left1, left2, center, right1, right2 = [], [], [], [], []
+    left_end, left_center, center, right_center, right_end = [], [], [], [], []
 
     for num in L[1:len(L)-1]:
         if num < pivots[0]:
-            left1.append(num)
+            left_end.append(num)
         elif num < pivots[1]:
-            left2.append(num)
+            left_center.append(num)
         elif num < pivots[2]:
             center.append(num)
         elif num < pivots[3]:
-            right1.append(num)
+            right_center.append(num)
         else:
-            right2.append(num)
-    return quicksort_copy3(left1) + [pivots[0]] + quicksort_copy(left2) + [pivots[1]] + quicksort_copy3(center) + [pivots[2]] + quicksort_copy2(right1) + [pivots[3]] + quicksort_copy2(right2)
+            right_end.append(num)
+    return quad_pivot_quicksort_copy(left_end) + [pivots[0]] + quad_pivot_quicksort_copy(left_center) + [pivots[1]] + quad_pivot_quicksort_copy(center) + [pivots[2]] + quad_pivot_quicksort_copy(right_center) + [pivots[3]] + quad_pivot_quicksort_copy(right_end)
     
     
     
