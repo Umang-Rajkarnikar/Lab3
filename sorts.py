@@ -91,7 +91,7 @@ def quicksort_copy2(L):
     pivot3 = L[len(L)//2]
     pivots = [pivot1, pivot2, pivot3]
     pivots.sort()
-    left, right, center1, center2 = [], [], [], []
+    quarter_1, quarter_2, quarter_3, quarter_4 = [], [], [], []
 
     for num in L[1:len(L)-1]:
         if num < pivots[0]:
@@ -128,7 +128,7 @@ def quicksort_copy3(L):
         elif num < pivots[1]:
             left2.append(num)
         elif num < pivots[2]:
-            center1.append(num)
+            center.append(num)
         elif num < pivots[3]:
             right1.append(num)
         else:
