@@ -90,19 +90,36 @@ def tri_pivot_quicksort_copy(L):
     pivot2 = L[len(L)-1]
     pivot3 = L[len(L)//2]
     pivots = [pivot1, pivot2, pivot3]
-    pivots.sort()
     quarter_1, quarter_2, quarter_3, quarter_4 = [], [], [], []
+   
+    min_val = min(pivots[0], pivots[1], pivots[2])
+    max_val = 0
+    if min_val == pivots[0]:
+        center_val = min(pivots[1], pivots[2])
+        max_val = max(pivots[1], pivots[2])
+    elif min_val == pivots[1]:
+        center_val = min(pivots[0], pivots[2])
+        max_val = max(pivots[0], pivots[2])
+    else:
+        center_val = min(pivots[0], pivots[1])
+        max_val = max(pivots[0], pivots[1])
+
+    
+        
+    max_val = max(pivots[0], pivots[1], pivots[3])
+   
+    list.remove() 
 
     for num in L[1:len(L)-1]:
-        if num < pivots[0]:
+        if num < min_val:
             quarter_1.append(num)
-        elif num < pivots[1]:
+        elif num < center_val:
             quarter_2.append(num)
-        elif num < pivots[2]:
+        elif num < max_val:
             quarter_3.append(num)
         else:
             quarter_4.append(num)
-    return tri_pivot_quicksort_copy(quarter_1) + [pivots[0]] + tri_pivot_quicksort_copy(quarter_2) + [pivots[1]] + tri_pivot_quicksort_copy(quarter_3) + [pivots[2]] + tri_pivot_quicksort_copy(quarter_4)
+    return tri_pivot_quicksort_copy(quarter_1) + min_val + tri_pivot_quicksort_copy(quarter_2) + center_val + tri_pivot_quicksort_copy(quarter_3) + max_val + tri_pivot_quicksort_copy(quarter_4)
     
 
 def quad_pivot_quicksort(L):
@@ -121,19 +138,67 @@ def quad_pivot_quicksort_copy(L):
     pivots = [pivot1, pivot2, pivot3, pivot4]
     pivots.sort()
     left_end, left_center, center, right_center, right_end = [], [], [], [], []
-
+    
+    min_val = min(pivots[0], pivots[1], pivots[2], pivot[3])
+    max_val = 0
+    center_val = 0
+    if min_val == pivots[0]:
+        center_val = min(pivots[1], pivots[2], pivots[3])
+        if center_value == pivots[1]:
+            center_val_2 = min(pivots[2], pivots[3])
+            max_val = max(pivots[2], pivots[3])         
+        elif center_value == pivots[2]:
+            center_val_2 = min(pivots[1], pivots[3])
+            max_val = max(pivots[1], pivots[3])                 
+        else:
+            center_val_2 = min(pivots[1], pivots[2])
+            max_val = max(pivots[1], pivots[2])                 
+    elif min_val == pivots[1]:
+        center_val = min(pivots[0], pivots[2], pivots[3])
+        if center_value == pivots[0]:
+            center_val_2 = min(pivots[2], pivots[3])
+            max_val = max(pivots[2], pivots[3])         
+        elif center_value == pivots[2]:
+            center_val_2 = min(pivots[0], pivots[3])
+            max_val = max(pivots[0], pivots[3])                 
+        else:
+            center_val_2 = min(pivots[0], pivots[2])
+            max_val = max(pivots[0], pivots[2])                 
+    elif min_val == pivots[2]:
+        center_val = min(pivots[0], pivots[1], pivots[3])
+        if center_value == pivots[0]:
+            center_val_2 = min(pivots[1], pivots[3])
+            max_val = max(pivots[1], pivots[3])         
+        elif center_value == pivots[1]:
+            center_val_2 = min(pivots[0], pivots[3])
+            max_val = max(pivots[0], pivots[3])                 
+        else:
+            center_val_2 = min(pivots[0], pivots[1])
+            max_val = max(pivots[0], pivots[1])                 
+    else:
+        center_val = min(pivots[0], pivots[1], pivots[2])
+        if center_value == pivots[0]:
+            center_val_2 = min(pivots[1], pivots[2])
+            max_val = max(pivots[1], pivots[2])         
+        elif center_value == pivots[1]:
+            center_val_2 = min(pivots[0], pivots[2])
+            max_val = max(pivots[0], pivots[2])                 
+        else:
+            center_val_2 = min(pivots[0], pivots[1])
+            max_val = max(pivots[0], pivots[1])              
+            
     for num in L[1:len(L)-1]:
-        if num < pivots[0]:
+        if num < min_val:
             left_end.append(num)
-        elif num < pivots[1]:
+        elif num < center_val:
             left_center.append(num)
-        elif num < pivots[2]:
+        elif num < center_val_2:
             center.append(num)
-        elif num < pivots[3]:
+        elif num < max_val:
             right_center.append(num)
         else:
             right_end.append(num)
-    return quad_pivot_quicksort_copy(left_end) + [pivots[0]] + quad_pivot_quicksort_copy(left_center) + [pivots[1]] + quad_pivot_quicksort_copy(center) + [pivots[2]] + quad_pivot_quicksort_copy(right_center) + [pivots[3]] + quad_pivot_quicksort_copy(right_end)
+    return quad_pivot_quicksort_copy(left_end) + min_val + quad_pivot_quicksort_copy(left_center) + center_val + quad_pivot_quicksort_copy(center) + center_val_2 + quad_pivot_quicksort_copy(right_center) + max_val + quad_pivot_quicksort_copy(right_end)
     
     
     
