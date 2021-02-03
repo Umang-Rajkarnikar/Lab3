@@ -1,6 +1,7 @@
 import random
 import math
 
+
 def my_quicksort(L):
     copy = quicksort_copy(L)
     for i in range(len(L)):
@@ -23,7 +24,7 @@ def quicksort_copy(L):
 def create_random_list(n):
     L = []
     for _ in range(n):
-        L.append(random.randint(1,n))
+        L.append(random.randint(1, n))
     return L
 
 
@@ -35,6 +36,7 @@ def create_near_sorted_list(n, factor):
         index2 = random.randint(0, n-1)
         L[index1], L[index2] = L[index2], L[index1]
     return L
+
 
 def dual_pivot_quicksort(L):
     if len(L) < 2:
@@ -50,18 +52,54 @@ def dual_pivot_quicksort(L):
         else:
             right.append(num)
     return dual_pivot_quicksort(left) + [min(pivot1, pivot2)] + dual_pivot_quicksort(center) + [max(pivot1, pivot2)] + dual_pivot_quicksort(right)
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+def dual_pivot_quicksor(L):
+    copy = quicksort_copy1(L)
+    for i in range(len(L)):
+        L[i] = copy[i]
+
+
+def quicksort_copy1(L):
+    if len(L) < 2:
+        return L
+    pivot1 = L[0]
+    left, right, center = [], [], []
+    pivot2 = L[len(L)-1]
+
+    for num in L[1:len(L)-1]:
+        if num < min(pivot1, pivot2):
+            left.append(num)
+        elif num < max(pivot1, pivot2):
+            center.append(num)
+        else:
+            right.append(num)
+    return quicksort_copy1(left) + [min(pivot1, pivot2)] + quicksort_copy1(center) + [max(pivot1, pivot2)] + quicksort_copy1(right)
+
+
+def tri_pivot_quicksort(L):
+    copy = quicksort_copy1(L)
+    for i in range(len(L)):
+        L[i] = copy[i]
+
+
+def quicksort_copy2(L):
+    if len(L) < 2:
+        return L
+    pivot1 = L[0]
+    pivot2 = L[len(L)-1]
+    pivot3 = L[len(L)/2]
+    pivots = [pivot1, pivot2, pivot3]
+    pivots.sort()
+    left, right, center1, center2 = [], [], [], []
+
+    for num in L[1:len(L)-1]:
+        if num < pivots[0]:
+            left.append(num)
+        elif num < pivots[1]:
+            center1.append(num)
+        elif num < pivots[2]:
+            center2.append(num)
+        else:
+            right.append(num)
+    return quicksort_copy2(left) + [pivots[0]] + quicksort_copy2(center1) + [pivots[1]] + quicksort_copy2(center2) + [pivots[2]] + quicksort_copy2(right)
