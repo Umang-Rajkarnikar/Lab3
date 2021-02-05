@@ -445,8 +445,7 @@ def factor_test():
 
 # SMALL LISTS
 
-
-def small_list_test():
+def small_list_test(n):
     factor_list = []
     x_axis_factor = []
     y_quick = []
@@ -454,9 +453,9 @@ def small_list_test():
     y_insertion = []
     y_selection = []
 
-    for i in range(5, 100, 2):
-        factor_list.append(create_random_list(i))
-        x_axis_factor.append(i)
+    for i in range(5, n, 1):
+         factor_list.append(create_random_list(i))
+         x_axis_factor.append(i)
 
     for i in factor_list:
         x = i.copy()
@@ -486,23 +485,35 @@ def small_list_test():
         end = timeit.default_timer()
         y_insertion.append(end - start)
 
-    plt.scatter(x_axis_factor, y_quick, label="Quick sort - Quad pivot")
-    plt.scatter(x_axis_factor, y_bubble, label="Bubble sort")
-    plt.scatter(x_axis_factor, y_selection, label="Selection sort")
-    plt.scatter(x_axis_factor, y_insertion, label="Insertion sort")
-    plt.title("Quicksort vs. Elementary Sorts vs. List Size (n)")
-    plt.xlabel("List Size (n)")
-    plt.ylabel("Runtime")
-    plt.legend()
-    plt.show()
+    if n <= 30:
+
+        plt.scatter(x_axis_factor, y_quick, label = "Quick sort - Quad pivot")
+        plt.scatter(x_axis_factor, y_selection, label = "Selection sort")
+        plt.scatter(x_axis_factor, y_insertion, label = "Insertion sort")
+        plt.title("Quicksort vs. Insertion Sort vs. List Size (n)")
+        plt.xlabel("List Size (n)")
+        plt.ylabel("Runtime")
+        plt.legend()
+        plt.show()
+    else:
+        plt.scatter(x_axis_factor, y_quick, label = "Quick sort - Quad pivot")
+        plt.scatter(x_axis_factor, y_bubble, label = "Bubble sort")
+        plt.scatter(x_axis_factor, y_selection, label = "Selection sort")
+        plt.scatter(x_axis_factor, y_insertion, label = "Insertion sort")
+        plt.title("Quicksort vs. Insertion Sort vs. List Size (n)")
+        plt.xlabel("List Size (n)")
+        plt.ylabel("Runtime")
+        plt.legend()
+        plt.show()
+
 
 ####################################################################################
 
 # Calling testing functions
 
-
-in_place_test()
+# in_place_test()
 # multi_pivot()
 # worst_case_test()
 # factor_test()
-# small_list_test()
+#small_list_test(100)
+small_list_test(30)
