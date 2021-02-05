@@ -3,6 +3,28 @@ import math
 import timeit
 import matplotlib.pyplot as plt
 
+def partition(list, low, high):
+    pivot = list[low]
+    i = low+1
+    j = high
+    while True:
+        while i<=j and list[j] >= pivot:
+            j -= 1
+        while i<=j and list[i] <= pivot:
+            i += 1
+        if i<=j:
+            list[i], list[j] = list[j], list[i]
+        else:
+            break
+    list[low], list[j] = list[j], list[low]
+    return j
+def quicksort_inplace(list, low, high):
+    if low < high:
+        p = partition(list, low, high)
+        quicksort_inplace(list, low, p)
+        quicksort_inplace(list, p+1, high)
+    return list
+
 def my_quicksort(L):
     copy = quicksort_copy(L)
     for i in range(len(L)):
