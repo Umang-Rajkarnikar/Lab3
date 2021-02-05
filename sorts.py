@@ -439,7 +439,7 @@ def get_min_index(L, n):
 # y_insertion = []
 # y_selection = []
 #
-# for i in range(10, 200, 5):
+# for i in range(5, 100, 2):
 #      factor_list.append(create_random_list(i))
 #      x_axis_factor.append(i)
 #
