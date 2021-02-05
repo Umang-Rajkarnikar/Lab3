@@ -267,7 +267,7 @@ plt.show()
 # for i in range(100, 10001, 100):
 #     pivots.append(create_random_list(i))
 #     x_axis.append(i)
-#
+
 # # Setup
 # y_axis = []
 # y_axis_dual = []
@@ -319,14 +319,14 @@ plt.show()
 # def setup_array(n):
 #     x = create_random_list(n)
 #     x.sort(reverse = True)
-#     return worst_case
+#     return x
 #
 # x_axis = []
 # y_axis = []
 # y_axis_average = []
-#
-# # Worst case
-# for i in range(500, 100001, 500):
+
+# Worst case
+# for i in range(10, 2500, 10):
 #     a = setup_array(i)
 #     x_axis.append(i)
 #     start = timeit.default_timer()
@@ -335,9 +335,9 @@ plt.show()
 #     y_axis.append(end - start)
 #
 # pivots = []
-# for i in range(500, 250001, 500):
+# for i in range(10, 2500, 10):
 #     pivots.append(create_random_list(i))
-#     x_axis.append(i)
+#     # x_axis.append(i)
 #
 # for i in pivots:
 #     x = i.copy()
@@ -349,7 +349,6 @@ plt.show()
 # plt.scatter(x_axis, y_axis_average, label = "Average Case Performance")
 # plt.legend()
 # plt.show()
-#
 
 ##############################################################################
 
@@ -365,16 +364,12 @@ def bubble_sort(L):
 
 
 def insertion_sort(L):
-    for i in range(len(L) - 1):
+   for i in range(len(L) - 1):
         insert_into(L, i)
-        temp = L[i]
-        L[i] = L[j]
-        L[j] = temp
-
 
 def insert_into(L, i):
     while i > 0:
-        if L[i] < l[i - 1]:
+        if L[i] < L[i - 1]:
             temp = L[i]
             L[i] = L[i - 1]
             L[i - 1] = temp
@@ -407,17 +402,17 @@ def get_min_index(L, n):
 # y_insertion = []
 # y_selection = []
 #
-# for i in range(0.01, 1, 0.01):
-#      factor_list.append(create_near_sorted_list(1000, i))
-#      x_axis_factor.append(i)
-
+# for i in range(1, 100):
+#      factor_list.append(create_near_sorted_list(1000, i/100))
+#      x_axis_factor.append(i/100)
+#
 # for i in factor_list:
 #     x = i.copy()
 #     start = timeit.default_timer()
 #     quad_pivot_quicksort(x)
 #     end = timeit.default_timer()
 #     y_quick.append(end - start)
-
+#
 # for i in factor_list:
 #     x = i.copy()
 #     start = timeit.default_timer()
@@ -438,7 +433,7 @@ def get_min_index(L, n):
 #     insertion_sort(x)
 #     end = timeit.default_timer()
 #     y_insertion.append(end - start)
-
+#
 # plt.scatter(x_axis_factor, y_quick, label = "Quick sort - Quad pivot")
 # plt.scatter(x_axis_factor, y_bubble, label = "Bubble sort")
 # plt.scatter(x_axis_factor, y_selection, label = "Selection sort")
@@ -460,14 +455,14 @@ def get_min_index(L, n):
 # for i in range(10, 200, 5):
 #      factor_list.append(create_random_list(i))
 #      x_axis_factor.append(i)
-
+#
 # for i in factor_list:
 #     x = i.copy()
 #     start = timeit.default_timer()
 #     quad_pivot_quicksort(x)
 #     end = timeit.default_timer()
 #     y_quick.append(end - start)
-
+#
 # for i in factor_list:
 #     x = i.copy()
 #     start = timeit.default_timer()
@@ -488,7 +483,7 @@ def get_min_index(L, n):
 #     insertion_sort(x)
 #     end = timeit.default_timer()
 #     y_insertion.append(end - start)
-
+#
 # plt.scatter(x_axis_factor, y_quick, label = "Quick sort - Quad pivot")
 # plt.scatter(x_axis_factor, y_bubble, label = "Bubble sort")
 # plt.scatter(x_axis_factor, y_selection, label = "Selection sort")
