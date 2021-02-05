@@ -3,30 +3,33 @@ import math
 import timeit
 import matplotlib.pyplot as plt
 
-def partition(list, low, high):
-    pivot = list[low]
+def partition(lists, low, high):
+    pivot = lists[low]
     i = low+1
     j = high
     while True:
-        while i<=j and list[j] >= pivot:
+        while i <= j and lists[j] >= pivot:
             j -= 1
-        while i<=j and list[i] <= pivot:
+        while i <= j and lists[i] <= pivot:
             i += 1
-        if i<=j:
-            list[i], list[j] = list[j], list[i]
+        if i <= j:
+            lists[i], lists[j] = lists[j], lists[i]
         else:
             break
-    list[low], list[j] = list[j], list[low]
+    lists[low], lists[j] = lists[j], lists[low]
     return j
-def quicksort_inplace_copy(list, low , high):
-    if low < high:
-        p = partition(list, low, high)
-        quicksort_inplace_copy(list, low, p)
-        quicksort_inplace_copy(list, p+1, high)
-    return list
 
-def quicksort_inplace(list):
-    return quicksort_inplace_copy(list, list[0], list[-1])
+
+def quicksort_inplace_copy(lists, low, high):
+    if low < high:
+        p = partition(lists, low, high)
+        quicksort_inplace_copy(lists, low, p)
+        quicksort_inplace_copy(lists, p+1, high)
+    return lists
+
+
+def quicksort_inplace(lists):
+    return quicksort_inplace_copy(lists, 0, len(lists)-1)
 
 def my_quicksort(L):
     copy = quicksort_copy(L)
@@ -393,8 +396,8 @@ def factor_test():
     y_selection = []
 
     for i in range(1, 100):
-         factor_list.append(create_near_sorted_list(1000, i/100))
-         x_axis_factor.append(i/100)
+         factor_list.append(create_near_sorted_list(1000, i/1000))
+         x_axis_factor.append(i/1000)
 
     for i in factor_list:
         x = i.copy()
@@ -492,7 +495,7 @@ def small_list_test():
 
 # Calling testing functions
 
-#in_place_test()
+in_place_test()
 # multi_pivot()
 # worst_case_test()
 # factor_test()
