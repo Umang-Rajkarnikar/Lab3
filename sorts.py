@@ -3,7 +3,6 @@ import math
 import timeit
 import matplotlib.pyplot as plt
 
-<<<<<<< HEAD
 def partition(lists, low, high):
     pivot = lists[low]
     i = low+1
@@ -15,31 +14,13 @@ def partition(lists, low, high):
             i += 1
         if i <= j:
             lists[i], lists[j] = lists[j], lists[i]
-=======
-
-def partition(list, low, high):
-    pivot = list[low]
-    i = low+1
-    j = high
-    while True:
-        while i <= j and list[j] >= pivot:
-            j -= 1
-        while i <= j and list[i] <= pivot:
-            i += 1
-        if i <= j:
-            list[i], list[j] = list[j], list[i]
->>>>>>> d0ef7698380cd28fabf0e42cd4cb916369dd3fba
         else:
             break
     lists[low], lists[j] = lists[j], lists[low]
     return j
 
 
-<<<<<<< HEAD
 def quicksort_inplace_copy(lists, low, high):
-=======
-def quicksort_inplace_copy(list, low, high):
->>>>>>> d0ef7698380cd28fabf0e42cd4cb916369dd3fba
     if low < high:
         p = partition(lists, low, high)
         quicksort_inplace_copy(lists, low, p)
@@ -47,14 +28,8 @@ def quicksort_inplace_copy(list, low, high):
     return lists
 
 
-<<<<<<< HEAD
 def quicksort_inplace(lists):
     return quicksort_inplace_copy(lists, 0, len(lists)-1)
-=======
-
-def quicksort_inplace(list):
-    return quicksort_inplace_copy(list, list[0], list[-1])
->>>>>>> d0ef7698380cd28fabf0e42cd4cb916369dd3fba
 
 
 def my_quicksort(L):
@@ -240,16 +215,119 @@ def quad_pivot_quicksort_copy(L):
     return quad_pivot_quicksort_copy(left_end) + [min_val] + quad_pivot_quicksort_copy(
         left_center) + [center_val] + quad_pivot_quicksort_copy(center) + [center_val_2] + quad_pivot_quicksort_copy(
         right_center) + [max_val] + quad_pivot_quicksort_copy(right_end)
+################################################################################################################
+# OPTIMIZED LIST
 
+def quad_pivot_quicksort_opt(L):
+    copy = quad_pivot_quicksort_opt_copy(L)
+    for i in range(len(L)):
+        L[i] = copy[i]
+
+
+def quad_pivot_quicksort_opt_copy(L):
+    if len(L) < 4:
+        return L
+    pivot1 = L[0]
+    pivot2 = L[1]
+    pivot3 = L[2]
+    pivot4 = L[3]
+    pivots = [pivot1, pivot2, pivot3, pivot4]
+    pivots.sort()
+    left_end, left_center, center, right_center, right_end = [], [], [], [], []
+
+    index = 0
+    for i in range(len(L)-1):
+        if L[i] < L[i + 1]:
+            temp = pivots[index]
+            pivots[index] = L[i]
+            L[i] = temp
+            index+=1
+            if index == 4:
+                break
+
+
+    min_val = min(pivots[0], pivots[1], pivots[2], pivots[3])
+    max_val = 0
+    center_val = 0
+    if min_val == pivots[0]:
+        center_val = min(pivots[1], pivots[2], pivots[3])
+        if center_val == pivots[1]:
+            center_val_2 = min(pivots[2], pivots[3])
+            max_val = max(pivots[2], pivots[3])
+        elif center_val == pivots[2]:
+            center_val_2 = min(pivots[1], pivots[3])
+            max_val = max(pivots[1], pivots[3])
+        else:
+            center_val_2 = min(pivots[1], pivots[2])
+            max_val = max(pivots[1], pivots[2])
+    elif min_val == pivots[1]:
+        center_val = min(pivots[0], pivots[2], pivots[3])
+        if center_val == pivots[0]:
+            center_val_2 = min(pivots[2], pivots[3])
+            max_val = max(pivots[2], pivots[3])
+        elif center_val == pivots[2]:
+            center_val_2 = min(pivots[0], pivots[3])
+            max_val = max(pivots[0], pivots[3])
+        else:
+            center_val_2 = min(pivots[0], pivots[2])
+            max_val = max(pivots[0], pivots[2])
+    elif min_val == pivots[2]:
+        center_val = min(pivots[0], pivots[1], pivots[3])
+        if center_val == pivots[0]:
+            center_val_2 = min(pivots[1], pivots[3])
+            max_val = max(pivots[1], pivots[3])
+        elif center_val == pivots[1]:
+            center_val_2 = min(pivots[0], pivots[3])
+            max_val = max(pivots[0], pivots[3])
+        else:
+            center_val_2 = min(pivots[0], pivots[1])
+            max_val = max(pivots[0], pivots[1])
+    else:
+        center_val = min(pivots[0], pivots[1], pivots[2])
+        if center_val == pivots[0]:
+            center_val_2 = min(pivots[1], pivots[2])
+            max_val = max(pivots[1], pivots[2])
+        elif center_val == pivots[1]:
+            center_val_2 = min(pivots[0], pivots[2])
+            max_val = max(pivots[0], pivots[2])
+        else:
+            center_val_2 = min(pivots[0], pivots[1])
+            max_val = max(pivots[0], pivots[1])
+
+    for num in L[4:]:
+        if num < min_val:
+            left_end.append(num)
+        elif num < center_val:
+            left_center.append(num)
+        elif num < center_val_2:
+            center.append(num)
+        elif num < max_val:
+            right_center.append(num)
+        else:
+            right_end.append(num)
+    return quad_pivot_quicksort_opt_copy(left_end) + [min_val] + quad_pivot_quicksort_opt_copy(
+        left_center) + [center_val] + quad_pivot_quicksort_copy(center) + [center_val_2] + quad_pivot_quicksort_copy(
+        right_center) + [max_val] + quad_pivot_quicksort_copy(right_end)
 ################################################################################################################
 
 # IN-PLACE
 
 
+def test(x):
+
+    total = 0
+
+    for i in range(10):
+        start = timeit.default_timer()
+        my_quicksort(x)
+        end = timeit.default_timer()
+        total+=end-start
+    return total/10
+
 def in_place_test():
     x_axis = []
     pivots = []
-    for i in range(100, 10001, 100):
+    for i in range(100, 1001, 100):
         pivots.append(create_random_list(i))
         x_axis.append(i)
 
@@ -259,17 +337,12 @@ def in_place_test():
 
     for i in pivots:
         x = i.copy()
-        start = timeit.default_timer()
-        my_quicksort(x)
-        end = timeit.default_timer()
-        y_axis.append(end - start)
+        y_axis.append(test(x))
+
 
     for i in pivots:
         x = i.copy()
-        start = timeit.default_timer()
-        quicksort_inplace(x)
-        end = timeit.default_timer()
-        y_axis_inplace.append(end - start)
+        y_axis_inplace.append(test(x))
 
     plt.scatter(x_axis, y_axis, label="Quicksort")
     plt.scatter(x_axis, y_axis_inplace, label="In-Place Quicksort")
@@ -296,27 +369,37 @@ def multi_pivot():
     y_axis_dual = []
     y_axis_tri = []
     y_axis_quad = []
+    y_final = []
 
     for i in pivots:
         x = i.copy()
         start = timeit.default_timer()
-        my_quicksort(x)
+        final_sort(x)
         end = timeit.default_timer()
-        y_axis.append(end - start)
+        y_final.append(end - start)
 
-    for i in pivots:
-        x = i.copy()
-        start = timeit.default_timer()
-        dual_pivot_quicksort(x)
-        end = timeit.default_timer()
-        y_axis_dual.append(end - start)
 
-    for i in pivots:
-        x = i.copy()
-        start = timeit.default_timer()
-        tri_pivot_quicksort(x)
-        end = timeit.default_timer()
-        y_axis_tri.append(end - start)
+    # for i in pivots:
+    #     x = i.copy()
+    #     start = timeit.default_timer()
+    #     my_quicksort(x)
+    #     end = timeit.default_timer()
+    #     y_axis.append(end - start)
+
+
+    # for i in pivots:
+    #     x = i.copy()
+    #     start = timeit.default_timer()
+    #     dual_pivot_quicksort(x)
+    #     end = timeit.default_timer()
+    #     y_axis_dual.append(end - start)
+
+    # for i in pivots:
+    #     x = i.copy()
+    #     start = timeit.default_timer()
+    #     tri_pivot_quicksort(x)
+    #     end = timeit.default_timer()
+    #     y_axis_tri.append(end - start)
 
     for i in pivots:
         x = i.copy()
@@ -325,10 +408,11 @@ def multi_pivot():
         end = timeit.default_timer()
         y_axis_quad.append(end - start)
 
-    plt.scatter(x_axis, y_axis, label="1_pivot")
-    plt.scatter(x_axis, y_axis_dual, label="2_pivot")
-    plt.scatter(x_axis, y_axis_tri, label="3_pivot")
+   # plt.scatter(x_axis, y_axis, label="1_pivot")
+   # plt.scatter(x_axis, y_axis_dual, label="2_pivot")
+   # plt.scatter(x_axis, y_axis_tri, label="3_pivot")
     plt.scatter(x_axis, y_axis_quad, label="4_pivot")
+    plt.scatter(x_axis, y_final, label="final")
     plt.title("Quicksort vs. Multi-Pivot Quicksort vs. List Size (n)")
     plt.xlabel("List Size (n)")
     plt.ylabel("Runtime")
@@ -384,6 +468,7 @@ def bubble_sort(L):
 def insertion_sort(L):
     for i in range(len(L) - 1):
         insert_into(L, i)
+    return L
 
 
 def insert_into(L, i):
@@ -424,13 +509,8 @@ def factor_test():
     y_selection = []
 
     for i in range(1, 100):
-<<<<<<< HEAD
          factor_list.append(create_near_sorted_list(1000, i/1000))
          x_axis_factor.append(i/1000)
-=======
-        factor_list.append(create_near_sorted_list(1000, i/1000))
-        x_axis_factor.append(i/1000)
->>>>>>> d0ef7698380cd28fabf0e42cd4cb916369dd3fba
 
     for i in factor_list:
         x = i.copy()
@@ -534,15 +614,100 @@ def small_list_test(n):
         plt.ylabel("Runtime")
         plt.legend()
         plt.show()
+    
+
+ ####################################################################################
+ # FinalSort
+def final_sort(L):
+    copy = final_copy(L)
+    for i in range(len(L)):
+        L[i] = copy[i]
 
 
-####################################################################################
+def final_copy(L):
+    if len(L) < 4:
+        return L
+
+    if len(L) < 10:
+        return insertion_sort(L)
+
+    pivot1 = L[0]
+    pivot2 = L[1]
+    pivot3 = L[2]
+    pivot4 = L[3]
+    pivots = [pivot1, pivot2, pivot3, pivot4]
+    pivots.sort()
+    left_end, left_center, center, right_center, right_end = [], [], [], [], []
+
+    min_val = min(pivots[0], pivots[1], pivots[2], pivots[3])
+    max_val = 0
+    center_val = 0
+    if min_val == pivots[0]:
+        center_val = min(pivots[1], pivots[2], pivots[3])
+        if center_val == pivots[1]:
+            center_val_2 = min(pivots[2], pivots[3])
+            max_val = max(pivots[2], pivots[3])
+        elif center_val == pivots[2]:
+            center_val_2 = min(pivots[1], pivots[3])
+            max_val = max(pivots[1], pivots[3])
+        else:
+            center_val_2 = min(pivots[1], pivots[2])
+            max_val = max(pivots[1], pivots[2])
+    elif min_val == pivots[1]:
+        center_val = min(pivots[0], pivots[2], pivots[3])
+        if center_value == pivots[0]:
+            center_val_2 = min(pivots[2], pivots[3])
+            max_val = max(pivots[2], pivots[3])
+        elif center_value == pivots[2]:
+            center_val_2 = min(pivots[0], pivots[3])
+            max_val = max(pivots[0], pivots[3])
+        else:
+            center_val_2 = min(pivots[0], pivots[2])
+            max_val = max(pivots[0], pivots[2])
+    elif min_val == pivots[2]:
+        center_val = min(pivots[0], pivots[1], pivots[3])
+        if center_value == pivots[0]:
+            center_val_2 = min(pivots[1], pivots[3])
+            max_val = max(pivots[1], pivots[3])
+        elif center_value == pivots[1]:
+            center_val_2 = min(pivots[0], pivots[3])
+            max_val = max(pivots[0], pivots[3])
+        else:
+            center_val_2 = min(pivots[0], pivots[1])
+            max_val = max(pivots[0], pivots[1])
+    else:
+        center_val = min(pivots[0], pivots[1], pivots[2])
+        if center_value == pivots[0]:
+            center_val_2 = min(pivots[1], pivots[2])
+            max_val = max(pivots[1], pivots[2])
+        elif center_value == pivots[1]:
+            center_val_2 = min(pivots[0], pivots[2])
+            max_val = max(pivots[0], pivots[2])
+        else:
+            center_val_2 = min(pivots[0], pivots[1])
+            max_val = max(pivots[0], pivots[1])
+
+    for num in L[4:]:
+        if num < min_val:
+            left_end.append(num)
+        elif num < center_val:
+            left_center.append(num)
+        elif num < center_val_2:
+            center.append(num)
+        elif num < max_val:
+            right_center.append(num)
+        else:
+            right_end.append(num)
+    return final_copy(left_end) + [min_val] + final_copy(
+        left_center) + [center_val] + final_copy(center) + [center_val_2] + final_copy(
+        right_center) + [max_val] + final_copy(right_end)
+# ###################################################################################
 
 # Calling testing functions
 
 # in_place_test()
-# multi_pivot()
+multi_pivot()
 # worst_case_test()
 # factor_test()
-#small_list_test(100)
-small_list_test(30)
+# small_list_test(100)
+# small_list_test(30)
