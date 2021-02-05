@@ -202,8 +202,6 @@ for i in range(100, 10001, 100):
 # Setup
 y_axis = []
 y_axis_inplace = []
-y_axis_tri = []
-y_axis_quad = []
 
 for i in pivots:
     x = i.copy()
@@ -220,25 +218,13 @@ for i in pivots:
     end = timeit.default_timer()
     y_axis_inplace.append(end - start)
 
-for i in pivots:
-    x = i.copy()
-    start = timeit.default_timer()
-    tri_pivot_quicksort(x)
-    end = timeit.default_timer()
-    y_axis_tri.append(end - start)
-
-for i in pivots:
-    x = i.copy()
-    start = timeit.default_timer()
-    quad_pivot_quicksort(x)
-    end = timeit.default_timer()
-    y_axis_quad.append(end - start)
-
-
 plt.scatter(x_axis, y_axis, label = "1_pivot")
 plt.scatter(x_axis, y_axis_dual, label = "2_pivot")
 plt.scatter(x_axis, y_axis_tri, label = "3_pivot")
 plt.scatter(x_axis, y_axis_quad, label = "4_pivot")
+plt.title("Quicksort vs. Inplace Quicksort vs. List Size (n)")
+plt.xlabel("List Size (n)")
+plt.ylabel("Runtime")
 plt.legend()
 plt.show()
 
@@ -293,6 +279,9 @@ plt.show()
 # plt.scatter(x_axis, y_axis_dual, label = "2_pivot")
 # plt.scatter(x_axis, y_axis_tri, label = "3_pivot")
 # plt.scatter(x_axis, y_axis_quad, label = "4_pivot")
+# plt.title("Quicksort vs. Multi-Pivot Quicksort vs. List Size (n)")
+# plt.xlabel("List Size (n)")
+# plt.ylabel("Runtime")
 # plt.legend()
 # plt.show()
 
@@ -308,7 +297,6 @@ plt.show()
 #
 # x_axis = []
 # y_axis = []
-# y_axis_average = []
 
 # Worst case
 # for i in range(10, 2500, 10):
@@ -319,20 +307,9 @@ plt.show()
 #     end = timeit.default_timer()
 #     y_axis.append(end - start)
 #
-# pivots = []
-# for i in range(10, 2500, 10):
-#     pivots.append(create_random_list(i))
-#     # x_axis.append(i)
-#
-# for i in pivots:
-#     x = i.copy()
-#     start = timeit.default_timer()
-#     quad_pivot_quicksort(x)
-#     end = timeit.default_timer()
-#     y_axis_average.append(end - start)
-# plt.scatter(x_axis, y_axis, label = "Worst Case Performance")
-# plt.scatter(x_axis, y_axis_average, label = "Average Case Performance")
-# plt.legend()
+# plt.title("Worst Case Performance vs. List Size (n)")
+# plt.xlabel("List Size (n)")
+# plt.ylabel("Runtime")
 # plt.show()
 
 ##############################################################################
@@ -423,6 +400,9 @@ def get_min_index(L, n):
 # plt.scatter(x_axis_factor, y_bubble, label = "Bubble sort")
 # plt.scatter(x_axis_factor, y_selection, label = "Selection sort")
 # plt.scatter(x_axis_factor, y_insertion, label = "Insertion sort")
+# plt.title("Quicksort vs. Elementary Sorts vs. Near-Sorted Factor")
+# plt.xlabel("Near-Sorted Factor")
+# plt.ylabel("Runtime")
 # plt.legend()
 # plt.show()
 
@@ -473,5 +453,8 @@ def get_min_index(L, n):
 # plt.scatter(x_axis_factor, y_bubble, label = "Bubble sort")
 # plt.scatter(x_axis_factor, y_selection, label = "Selection sort")
 # plt.scatter(x_axis_factor, y_insertion, label = "Insertion sort")
+# plt.title("Quicksort vs. Elementary Sorts vs. List Size (n)")
+# plt.xlabel("List Size (n)")
+# plt.ylabel("Runtime")
 # plt.legend()
 # plt.show()
