@@ -333,6 +333,7 @@ def worst_case_test():
         end = timeit.default_timer()
         y_axis.append(end - start)
 
+    plt.scatter(x_axis, y_axis)
     plt.title("Worst Case Performance vs. List Size (n)")
     plt.xlabel("List Size (n)")
     plt.ylabel("Runtime")
