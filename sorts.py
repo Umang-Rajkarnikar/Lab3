@@ -500,7 +500,7 @@ def small_list_test(n):
         plt.scatter(x_axis_factor, y_bubble, label = "Bubble sort")
         plt.scatter(x_axis_factor, y_selection, label = "Selection sort")
         plt.scatter(x_axis_factor, y_insertion, label = "Insertion sort")
-        plt.title("Quicksort vs. Insertion Sort vs. List Size (n)")
+        plt.title("Quicksort vs. Insertion Sort vs. Selection Sort vs. List Size (n)")
         plt.xlabel("List Size (n)")
         plt.ylabel("Runtime")
         plt.legend()
