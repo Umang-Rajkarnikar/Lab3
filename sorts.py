@@ -39,30 +39,15 @@ def create_near_sorted_list(n, factor):
     return L
 
 
-def dual_pivot_quicksort(L):
-    if len(L) < 2:
-        return L
-    pivot1 = L[0]
-    pivot2 = L[-1]
-    left, center, right = [], [], []
-    for num in L[1:len(L) - 1]:
-        if num < min(pivot1, pivot2):
-            left.append(num)
-        elif num < max(pivot1, pivot2):
-            center.append(num)
-        else:
-            right.append(num)
-    return dual_pivot_quicksort(left) + [min(pivot1, pivot2)] + dual_pivot_quicksort(center) + [
-        max(pivot1, pivot2)] + dual_pivot_quicksort(right)
 
 
 def dual_pivot_quicksort(L):
-    copy = quicksort_copy1(L)
+    copy = dual_pivot_quicksort_copy(L)
     for i in range(len(L)):
         L[i] = copy[i]
 
 
-def quicksort_copy1(L):
+def dual_pivot_quicksort_copy(L):
     if len(L) < 2:
         return L
     left, right, center = [], [], []
@@ -81,7 +66,7 @@ def quicksort_copy1(L):
             center.append(num)
         else:
             right.append(num)
-    return quicksort_copy1(left) + [pivot1] + quicksort_copy1(center) + [pivot2] + quicksort_copy1(right)
+    return dual_pivot_quicksort_copy(left) + [pivot1] + dual_pivot_quicksort_copy(center) + [pivot2] + dual_pivot_quicksort_copy(right)
 
 
 def tri_pivot_quicksort(L):
