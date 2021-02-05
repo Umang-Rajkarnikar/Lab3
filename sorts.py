@@ -3,6 +3,7 @@ import math
 import timeit
 import matplotlib.pyplot as plt
 
+<<<<<<< HEAD
 def partition(lists, low, high):
     pivot = lists[low]
     i = low+1
@@ -14,13 +15,31 @@ def partition(lists, low, high):
             i += 1
         if i <= j:
             lists[i], lists[j] = lists[j], lists[i]
+=======
+
+def partition(list, low, high):
+    pivot = list[low]
+    i = low+1
+    j = high
+    while True:
+        while i <= j and list[j] >= pivot:
+            j -= 1
+        while i <= j and list[i] <= pivot:
+            i += 1
+        if i <= j:
+            list[i], list[j] = list[j], list[i]
+>>>>>>> d0ef7698380cd28fabf0e42cd4cb916369dd3fba
         else:
             break
     lists[low], lists[j] = lists[j], lists[low]
     return j
 
 
+<<<<<<< HEAD
 def quicksort_inplace_copy(lists, low, high):
+=======
+def quicksort_inplace_copy(list, low, high):
+>>>>>>> d0ef7698380cd28fabf0e42cd4cb916369dd3fba
     if low < high:
         p = partition(lists, low, high)
         quicksort_inplace_copy(lists, low, p)
@@ -28,8 +47,15 @@ def quicksort_inplace_copy(lists, low, high):
     return lists
 
 
+<<<<<<< HEAD
 def quicksort_inplace(lists):
     return quicksort_inplace_copy(lists, 0, len(lists)-1)
+=======
+
+def quicksort_inplace(list):
+    return quicksort_inplace_copy(list, list[0], list[-1])
+>>>>>>> d0ef7698380cd28fabf0e42cd4cb916369dd3fba
+
 
 def my_quicksort(L):
     copy = quicksort_copy(L)
@@ -65,8 +91,6 @@ def create_near_sorted_list(n, factor):
         index2 = random.randint(0, n - 1)
         L[index1], L[index2] = L[index2], L[index1]
     return L
-
-
 
 
 def dual_pivot_quicksort(L):
@@ -221,6 +245,7 @@ def quad_pivot_quicksort_copy(L):
 
 # IN-PLACE
 
+
 def in_place_test():
     x_axis = []
     pivots = []
@@ -239,7 +264,6 @@ def in_place_test():
         end = timeit.default_timer()
         y_axis.append(end - start)
 
-
     for i in pivots:
         x = i.copy()
         start = timeit.default_timer()
@@ -247,8 +271,8 @@ def in_place_test():
         end = timeit.default_timer()
         y_axis_inplace.append(end - start)
 
-    plt.scatter(x_axis, y_axis, label = "Quicksort")
-    plt.scatter(x_axis, y_axis_inplace, label = "In-Place Quicksort")
+    plt.scatter(x_axis, y_axis, label="Quicksort")
+    plt.scatter(x_axis, y_axis_inplace, label="In-Place Quicksort")
     plt.title("Quicksort vs. Inplace Quicksort vs. List Size (n)")
     plt.xlabel("List Size (n)")
     plt.ylabel("Runtime")
@@ -280,7 +304,6 @@ def multi_pivot():
         end = timeit.default_timer()
         y_axis.append(end - start)
 
-
     for i in pivots:
         x = i.copy()
         start = timeit.default_timer()
@@ -302,11 +325,10 @@ def multi_pivot():
         end = timeit.default_timer()
         y_axis_quad.append(end - start)
 
-
-    plt.scatter(x_axis, y_axis, label = "1_pivot")
-    plt.scatter(x_axis, y_axis_dual, label = "2_pivot")
-    plt.scatter(x_axis, y_axis_tri, label = "3_pivot")
-    plt.scatter(x_axis, y_axis_quad, label = "4_pivot")
+    plt.scatter(x_axis, y_axis, label="1_pivot")
+    plt.scatter(x_axis, y_axis_dual, label="2_pivot")
+    plt.scatter(x_axis, y_axis_tri, label="3_pivot")
+    plt.scatter(x_axis, y_axis_quad, label="4_pivot")
     plt.title("Quicksort vs. Multi-Pivot Quicksort vs. List Size (n)")
     plt.xlabel("List Size (n)")
     plt.ylabel("Runtime")
@@ -318,10 +340,13 @@ def multi_pivot():
 # PART 3 - WORST CASE PERFORMANCE
 
 # Setup
+
+
 def setup_array(n):
     x = create_random_list(n)
-    x.sort(reverse = True)
+    x.sort(reverse=True)
     return x
+
 
 def worst_case_test():
     x_axis = []
@@ -346,6 +371,7 @@ def worst_case_test():
 
 # FACTOR
 
+
 def bubble_sort(L):
     for i in range(len(L)):
         for j in range(len(L) - 1):
@@ -356,8 +382,9 @@ def bubble_sort(L):
 
 
 def insertion_sort(L):
-   for i in range(len(L) - 1):
+    for i in range(len(L) - 1):
         insert_into(L, i)
+
 
 def insert_into(L, i):
     while i > 0:
@@ -387,6 +414,7 @@ def get_min_index(L, n):
             mindex = i
     return mindex
 
+
 def factor_test():
     factor_list = []
     x_axis_factor = []
@@ -396,8 +424,13 @@ def factor_test():
     y_selection = []
 
     for i in range(1, 100):
+<<<<<<< HEAD
          factor_list.append(create_near_sorted_list(1000, i/1000))
          x_axis_factor.append(i/1000)
+=======
+        factor_list.append(create_near_sorted_list(1000, i/1000))
+        x_axis_factor.append(i/1000)
+>>>>>>> d0ef7698380cd28fabf0e42cd4cb916369dd3fba
 
     for i in factor_list:
         x = i.copy()
@@ -427,10 +460,10 @@ def factor_test():
         end = timeit.default_timer()
         y_insertion.append(end - start)
 
-    plt.scatter(x_axis_factor, y_quick, label = "Quick sort - Quad pivot")
-    plt.scatter(x_axis_factor, y_bubble, label = "Bubble sort")
-    plt.scatter(x_axis_factor, y_selection, label = "Selection sort")
-    plt.scatter(x_axis_factor, y_insertion, label = "Insertion sort")
+    plt.scatter(x_axis_factor, y_quick, label="Quick sort - Quad pivot")
+    plt.scatter(x_axis_factor, y_bubble, label="Bubble sort")
+    plt.scatter(x_axis_factor, y_selection, label="Selection sort")
+    plt.scatter(x_axis_factor, y_insertion, label="Insertion sort")
     plt.title("Quicksort vs. Elementary Sorts vs. Near-Sorted Factor")
     plt.xlabel("Near-Sorted Factor")
     plt.ylabel("Runtime")
@@ -441,7 +474,7 @@ def factor_test():
 
 # SMALL LISTS
 
-def small_list_test():
+def small_list_test(n):
     factor_list = []
     x_axis_factor = []
     y_quick = []
@@ -449,7 +482,7 @@ def small_list_test():
     y_insertion = []
     y_selection = []
 
-    for i in range(5, 100, 2):
+    for i in range(5, n, 1):
          factor_list.append(create_random_list(i))
          x_axis_factor.append(i)
 
@@ -481,22 +514,35 @@ def small_list_test():
         end = timeit.default_timer()
         y_insertion.append(end - start)
 
-    plt.scatter(x_axis_factor, y_quick, label = "Quick sort - Quad pivot")
-    plt.scatter(x_axis_factor, y_bubble, label = "Bubble sort")
-    plt.scatter(x_axis_factor, y_selection, label = "Selection sort")
-    plt.scatter(x_axis_factor, y_insertion, label = "Insertion sort")
-    plt.title("Quicksort vs. Elementary Sorts vs. List Size (n)")
-    plt.xlabel("List Size (n)")
-    plt.ylabel("Runtime")
-    plt.legend()
-    plt.show()
+    if n <= 30:
+
+        plt.scatter(x_axis_factor, y_quick, label = "Quick sort - Quad pivot")
+        plt.scatter(x_axis_factor, y_selection, label = "Selection sort")
+        plt.scatter(x_axis_factor, y_insertion, label = "Insertion sort")
+        plt.title("Quicksort vs. Insertion Sort vs. List Size (n)")
+        plt.xlabel("List Size (n)")
+        plt.ylabel("Runtime")
+        plt.legend()
+        plt.show()
+    else:
+        plt.scatter(x_axis_factor, y_quick, label = "Quick sort - Quad pivot")
+        plt.scatter(x_axis_factor, y_bubble, label = "Bubble sort")
+        plt.scatter(x_axis_factor, y_selection, label = "Selection sort")
+        plt.scatter(x_axis_factor, y_insertion, label = "Insertion sort")
+        plt.title("Quicksort vs. Insertion Sort vs. Selection Sort vs. List Size (n)")
+        plt.xlabel("List Size (n)")
+        plt.ylabel("Runtime")
+        plt.legend()
+        plt.show()
+
 
 ####################################################################################
 
 # Calling testing functions
 
-in_place_test()
+# in_place_test()
 # multi_pivot()
 # worst_case_test()
 # factor_test()
-# small_list_test()
+#small_list_test(100)
+small_list_test(30)
