@@ -204,15 +204,19 @@ def quad_pivot_quicksort_copy(L):
         left_center) + [center_val] + quad_pivot_quicksort_copy(center) + [center_val_2] + quad_pivot_quicksort_copy(
         right_center) + [max_val] + quad_pivot_quicksort_copy(right_end)
 
+################################################################################################################
+
+# IN-PLACE
+
 x_axis = []
 pivots = []
 for i in range(100, 10001, 100):
     pivots.append(create_random_list(i))
     x_axis.append(i)
 
-# # # Setup
+# Setup
 y_axis = []
-y_axis_dual = []
+y_axis_inplace = []
 y_axis_tri = []
 y_axis_quad = []
 
@@ -227,9 +231,9 @@ for i in pivots:
 for i in pivots:
     x = i.copy()
     start = timeit.default_timer()
-    dual_pivot_quicksort(x)
+    quicksort_inplace(x)
     end = timeit.default_timer()
-    y_axis_dual.append(end - start)
+    y_axis_inplace.append(end - start)
 
 for i in pivots:
     x = i.copy()
@@ -253,28 +257,59 @@ plt.scatter(x_axis, y_axis_quad, label = "4_pivot")
 plt.legend()
 plt.show()
 
-# def timetest_copy(runs, size):
-#     total = 0
-#     for _ in range(runs):
-#         a = initialize_list(size)
-#         b = []
-#         # Times only when the copy method is called
-#         start = timeit.default_timer()
-#         b = a.copy()
-#         end = timeit.default_timer()
-#         # Total time
-#         total += end - start
-#     # Calculation for average times
-#     return total/runs
+
+################################################################################################################
+
+# MULTI-PIVOT
+
+# x_axis = []
+# pivots = []
+# for i in range(100, 10001, 100):
+#     pivots.append(create_random_list(i))
+#     x_axis.append(i)
 #
-# for i in range(100, 10000, 100):
-#     print(i, timetest_copy(100, i))
-
-#pivot = create_random_list(100000)
-
-#print(pivot)
-#tri_pivot_quicksort(pivot)
-#print(pivot)
+# # Setup
+# y_axis = []
+# y_axis_dual = []
+# y_axis_tri = []
+# y_axis_quad = []
+#
+# for i in pivots:
+#     x = i.copy()
+#     start = timeit.default_timer()
+#     my_quicksort(x)
+#     end = timeit.default_timer()
+#     y_axis.append(end - start)
+#
+#
+# for i in pivots:
+#     x = i.copy()
+#     start = timeit.default_timer()
+#     dual_pivot_quicksort(x)
+#     end = timeit.default_timer()
+#     y_axis_dual.append(end - start)
+#
+# for i in pivots:
+#     x = i.copy()
+#     start = timeit.default_timer()
+#     tri_pivot_quicksort(x)
+#     end = timeit.default_timer()
+#     y_axis_tri.append(end - start)
+#
+# for i in pivots:
+#     x = i.copy()
+#     start = timeit.default_timer()
+#     quad_pivot_quicksort(x)
+#     end = timeit.default_timer()
+#     y_axis_quad.append(end - start)
+#
+#
+# plt.scatter(x_axis, y_axis, label = "1_pivot")
+# plt.scatter(x_axis, y_axis_dual, label = "2_pivot")
+# plt.scatter(x_axis, y_axis_tri, label = "3_pivot")
+# plt.scatter(x_axis, y_axis_quad, label = "4_pivot")
+# plt.legend()
+# plt.show()
 
 #############################################################################################
 
@@ -316,6 +351,9 @@ plt.show()
 # plt.show()
 #
 
+##############################################################################
+
+# FACTOR
 
 def bubble_sort(L):
     for i in range(len(L)):
@@ -361,3 +399,99 @@ def get_min_index(L, n):
         if L[i] < L[mindex]:
             mindex = i
     return mindex
+
+# factor_list = []
+# x_axis_factor = []
+# y_quick = []
+# y_bubble = []
+# y_insertion = []
+# y_selection = []
+#
+# for i in range(0.01, 1, 0.01):
+#      factor_list.append(create_near_sorted_list(1000, i))
+#      x_axis_factor.append(i)
+
+# for i in factor_list:
+#     x = i.copy()
+#     start = timeit.default_timer()
+#     quad_pivot_quicksort(x)
+#     end = timeit.default_timer()
+#     y_quick.append(end - start)
+
+# for i in factor_list:
+#     x = i.copy()
+#     start = timeit.default_timer()
+#     bubble_sort(x)
+#     end = timeit.default_timer()
+#     y_bubble.append(end - start)
+#
+# for i in factor_list:
+#     x = i.copy()
+#     start = timeit.default_timer()
+#     selection_sort(x)
+#     end = timeit.default_timer()
+#     y_selection.append(end - start)
+#
+# for i in factor_list:
+#     x = i.copy()
+#     start = timeit.default_timer()
+#     insertion_sort(x)
+#     end = timeit.default_timer()
+#     y_insertion.append(end - start)
+
+# plt.scatter(x_axis_factor, y_quick, label = "Quick sort - Quad pivot")
+# plt.scatter(x_axis_factor, y_bubble, label = "Bubble sort")
+# plt.scatter(x_axis_factor, y_selection, label = "Selection sort")
+# plt.scatter(x_axis_factor, y_insertion, label = "Insertion sort")
+# plt.legend()
+# plt.show()
+
+###############################################################################################################
+
+# SMALL LISTS
+
+# factor_list = []
+# x_axis_factor = []
+# y_quick = []
+# y_bubble = []
+# y_insertion = []
+# y_selection = []
+#
+# for i in range(10, 200, 5):
+#      factor_list.append(create_random_list(i))
+#      x_axis_factor.append(i)
+
+# for i in factor_list:
+#     x = i.copy()
+#     start = timeit.default_timer()
+#     quad_pivot_quicksort(x)
+#     end = timeit.default_timer()
+#     y_quick.append(end - start)
+
+# for i in factor_list:
+#     x = i.copy()
+#     start = timeit.default_timer()
+#     bubble_sort(x)
+#     end = timeit.default_timer()
+#     y_bubble.append(end - start)
+#
+# for i in factor_list:
+#     x = i.copy()
+#     start = timeit.default_timer()
+#     selection_sort(x)
+#     end = timeit.default_timer()
+#     y_selection.append(end - start)
+#
+# for i in factor_list:
+#     x = i.copy()
+#     start = timeit.default_timer()
+#     insertion_sort(x)
+#     end = timeit.default_timer()
+#     y_insertion.append(end - start)
+
+# plt.scatter(x_axis_factor, y_quick, label = "Quick sort - Quad pivot")
+# plt.scatter(x_axis_factor, y_bubble, label = "Bubble sort")
+# plt.scatter(x_axis_factor, y_selection, label = "Selection sort")
+# plt.scatter(x_axis_factor, y_insertion, label = "Insertion sort")
+# plt.legend()
+# plt.show()
