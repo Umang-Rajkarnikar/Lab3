@@ -491,7 +491,7 @@ def small_list_test():
 
 # Calling testing functions
 
-in_place_test()
+#in_place_test()
 # multi_pivot()
 # worst_case_test()
 # factor_test()
